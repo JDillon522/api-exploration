@@ -19,7 +19,7 @@ namespace API.Authentication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddIdentityCore<string>(options => {});
+            services.AddIdentityCore<UserModel>(options => {});
             services.AddScoped<IUserStore<UserModel>, UserStore>();
         }
 
@@ -31,10 +31,7 @@ namespace API.Authentication
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseMvc();
         }
     }
 }

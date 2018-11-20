@@ -7,7 +7,7 @@ using System;
 
 namespace API.Authentication.Controllers
 {
-    [Route("/api")]
+    [Route("api/login")]
     public class LoginController : Controller
     {
         private readonly UserManager<UserModel> _userManager;
@@ -17,28 +17,36 @@ namespace API.Authentication.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("/login/register")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterNewUser(RegisterModel registerData)
+        [HttpPost("register")]
+        // [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterNewUser([FromBody] RegisterModel registerData)
         {
-            if (!ModelState.IsValid) {
-                return BadRequest();
+            if (ModelState.IsValid) {
+                if (await _userManager.FindByNameAsync(registerData.UserName) != null) {
+                    ModelState.AddModelError("Error", "User name already exists");
+                    return BadRequest(ModelState);
+                }
+
+                UserModel newUser = new UserModel()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = registerData.UserName,
+                };
+
+                var result = await _userManager.CreateAsync(newUser, registerData.Password);
+
+                if (result.Succeeded) {
+                    return Ok();
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+                return BadRequest(ModelState);
             }
 
-
-            if (await _userManager.FindByNameAsync(registerData.UserName) != null) {
-                return BadRequest();
-            }
-
-            UserModel newUser = new UserModel()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = registerData.UserName,
-            };
-
-            var result = await _userManager.CreateAsync(newUser, registerData.Password);
-
-            return Ok();
+            return BadRequest(ModelState);
         }
     }
 }

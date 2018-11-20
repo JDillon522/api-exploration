@@ -25,15 +25,15 @@ namespace API.Authentication.Entities
                 await connection.ExecuteAsync(
                     "insert into Users([Id]," +
                     "[UserName]," +
-                    "[NormalizedName]," +
-                    "[PasswordHash]," +
+                    "[NormalizedUserName]," +
+                    "[PasswordHash]) " +
                     "Values(@id,@userName,@normalizedUserName,@passwordHash)",
                     new
                     {
                         id = user.Id,
                         userName = user.UserName,
                         normalizedUserName = user.NormalizedUserName,
-                        PasswordHasher= user.PasswordHash
+                        PasswordHash= user.PasswordHash
                     }
                 );
 

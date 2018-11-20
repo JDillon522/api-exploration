@@ -59,3 +59,13 @@
         - Built with .NET Core MVC using API.REST
     - GRAPH.RAZOR-REST
         - Built with .NET Core Razor pages using API.REST
+
+## Path
+Complete the goals in the following order:
+
+1) Configure
+    - Build API.Authentication with Identity server
+    - Build Data layer
+2) Rest Lvl 2
+    - Build REST.API
+    - Build REST.NG-REST

@@ -84,7 +84,7 @@ namespace API.Authentication.Entities
             return Task.FromResult(user.PasswordHash);
         }
 
-        public Task<Guid> GetUserIdAsync(UserModel user, CancellationToken cancellationToken)
+        public Task<string> GetUserIdAsync(UserModel user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.Id);
         }

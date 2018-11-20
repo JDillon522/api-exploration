@@ -32,7 +32,7 @@ namespace API.Authentication.Controllers
 
             UserModel newUser = new UserModel()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 UserName = registerData.UserName,
             };
 

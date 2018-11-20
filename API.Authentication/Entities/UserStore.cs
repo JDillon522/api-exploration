@@ -1,3 +1,4 @@
+using System;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Threading;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace API.Authentication.Entities
 {
-    public class UserStore : IUserStore<User>, IUserPasswordStore<User>
+    public class UserStore : IUserStore<UserModel>, IUserPasswordStore<UserModel>
     {
         public static DbConnection GetOpenConnection()
         {
@@ -17,7 +18,7 @@ namespace API.Authentication.Entities
             return connection;
         }
 
-        public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
+        public async Task<IdentityResult> CreateAsync(UserModel user, CancellationToken cancellationToken)
         {
             using (var connection = GetOpenConnection())
             {
@@ -41,7 +42,7 @@ namespace API.Authentication.Entities
             return IdentityResult.Success;
         }
 
-        public Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
+        public Task<IdentityResult> DeleteAsync(UserModel user, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }
@@ -51,72 +52,72 @@ namespace API.Authentication.Entities
                 //
         }
 
-        public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
+        public async Task<UserModel> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
             using (var connection = GetOpenConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<User>(
+                return await connection.QueryFirstOrDefaultAsync<UserModel>(
                     "select * from Users where Id = @id",
                     new { id = userId }
                 );
             }
         }
 
-        public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
+        public async Task<UserModel> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
             using (var connection = GetOpenConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<User>(
+                return await connection.QueryFirstOrDefaultAsync<UserModel>(
                     "select * from Users where NormalizedUserName = @normalizedUserName",
                     new { normalizedUserName = normalizedUserName }
                 );
             }
         }
 
-        public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetNormalizedUserNameAsync(UserModel user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.NormalizedUserName);
         }
 
-        public Task<string> GetPasswordHashAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetPasswordHashAsync(UserModel user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.PasswordHash);
         }
 
-        public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
+        public Task<Guid> GetUserIdAsync(UserModel user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.Id);
         }
 
-        public Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken)
+        public Task<string> GetUserNameAsync(UserModel user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.UserName);
         }
 
-        public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
+        public Task<bool> HasPasswordAsync(UserModel user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.PasswordHash != null);
         }
 
-        public Task SetNormalizedUserNameAsync(User user, string normalizedName, CancellationToken cancellationToken)
+        public Task SetNormalizedUserNameAsync(UserModel user, string normalizedName, CancellationToken cancellationToken)
         {
             user.NormalizedUserName = normalizedName;
             return Task.CompletedTask;
         }
 
-        public Task SetPasswordHashAsync(User user, string passwordHash, CancellationToken cancellationToken)
+        public Task SetPasswordHashAsync(UserModel user, string passwordHash, CancellationToken cancellationToken)
         {
             user.PasswordHash = passwordHash;
             return Task.CompletedTask;
         }
 
-        public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)
+        public Task SetUserNameAsync(UserModel user, string userName, CancellationToken cancellationToken)
         {
             user.UserName = userName;
             return Task.CompletedTask;
         }
 
-        public Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
+        public Task<IdentityResult> UpdateAsync(UserModel user, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }

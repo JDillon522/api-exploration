@@ -20,7 +20,7 @@ namespace API.Authentication
         {
             services.AddMvc();
             services.AddIdentityCore<string>(options => {});
-            services.AddScoped<IUserStore<User>, UserStore>();
+            services.AddScoped<IUserStore<UserModel>, UserStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

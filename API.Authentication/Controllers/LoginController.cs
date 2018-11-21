@@ -4,6 +4,9 @@ using API.Authentication.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace API.Authentication.Controllers
 {
@@ -17,12 +20,39 @@ namespace API.Authentication.Controllers
             _userManager = userManager;
         }
 
+
+        [HttpPost("")]
+        // [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserModel user = await _userManager.FindByNameAsync(model.UserName);
+
+                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+                {
+                    ClaimsIdentity identity = new ClaimsIdentity("cookies");
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserName));
+
+                    await HttpContext.SignInAsync("cookies", new ClaimsPrincipal(identity));
+
+                    return Ok();
+                }
+            }
+
+            ModelState.AddModelError("LoginError", "Invalid UserName or Password");
+            return BadRequest(ModelState);
+        }
+
+
         [HttpPost("register")]
         // [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterNewUser([FromBody] RegisterModel registerData)
+        [Authorize]
+        public async Task<IActionResult> RegisterNewUser([FromBody] RegisterModel model)
         {
             if (ModelState.IsValid) {
-                if (await _userManager.FindByNameAsync(registerData.UserName) != null) {
+                if (await _userManager.FindByNameAsync(model.UserName) != null) {
                     ModelState.AddModelError("Error", "User name already exists");
                     return BadRequest(ModelState);
                 }
@@ -30,16 +60,16 @@ namespace API.Authentication.Controllers
                 UserModel newUser = new UserModel()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    UserName = registerData.UserName,
+                    UserName = model.UserName,
                 };
 
-                var result = await _userManager.CreateAsync(newUser, registerData.Password);
+                IdentityResult result = await _userManager.CreateAsync(newUser, model.Password);
 
                 if (result.Succeeded) {
                     return Ok();
                 }
 
-                foreach (var error in result.Errors)
+                foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError(error.Code, error.Description);
                 }
@@ -48,5 +78,7 @@ namespace API.Authentication.Controllers
 
             return BadRequest(ModelState);
         }
+
+
     }
 }

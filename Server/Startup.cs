@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Authentication.Entities;
+using API.Authentication.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-using API.Authentication.Models;
-using API.Authentication.Entities;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Authentication
+namespace Server
 {
     public class Startup
     {
@@ -21,6 +21,8 @@ namespace API.Authentication
             services.AddMvc();
             services.AddIdentityCore<UserModel>(options => {});
             services.AddScoped<IUserStore<UserModel>, UserStore>();
+
+            services.AddAuthentication("cookies").AddCookie("cookies", options => options.LoginPath = "/api/login");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,6 +33,7 @@ namespace API.Authentication
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Authentication", "API.Authentication\API.Authentication.csproj", "{990495AD-F38B-4225-B9CE-498ACED0A84B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{01793B5B-4872-41BE-84D3-4BA25ABB99AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{990495AD-F38B-4225-B9CE-498ACED0A84B}.Release|x64.Build.0 = Release|Any CPU
 		{990495AD-F38B-4225-B9CE-498ACED0A84B}.Release|x86.ActiveCfg = Release|Any CPU
 		{990495AD-F38B-4225-B9CE-498ACED0A84B}.Release|x86.Build.0 = Release|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Debug|x64.Build.0 = Debug|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Release|x64.ActiveCfg = Release|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Release|x64.Build.0 = Release|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{01793B5B-4872-41BE-84D3-4BA25ABB99AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

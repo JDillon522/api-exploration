@@ -3,11 +3,11 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
-using API.Authentication.Models;
+using API.Data.Models;
 using Dapper;
 using Microsoft.AspNetCore.Identity;
 
-namespace API.Authentication.Entities
+namespace API.Data.Entities
 {
     public class UserStore : IUserStore<UserModel>, IUserPasswordStore<UserModel>
     {

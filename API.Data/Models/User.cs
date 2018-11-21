@@ -1,6 +1,6 @@
 using System;
 
-namespace API.Authentication.Models
+namespace API.Data.Models
 {
     public class UserModel
     {

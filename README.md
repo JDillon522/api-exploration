@@ -9,6 +9,8 @@
     - Angular
     - .NET Core MVC
     - .NET Core MVC with Razor pages
+- Use PostMan to test API during development
+    - [API-Exploration Workspace Collection](https://documenter.getpostman.com/view/3443802/RzZFDH9g)
 
 ## Requirements
 - Use Identity Server and Entity Framework across all permutations

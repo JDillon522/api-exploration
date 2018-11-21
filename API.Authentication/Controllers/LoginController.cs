@@ -15,10 +15,10 @@ namespace API.Authentication.Controllers
     [Route("api/login")]
     public class LoginController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<UserModel> _userManager;
         private readonly IAntiforgery _antiForgery;
 
-        public LoginController(UserManager<IdentityUser> userManager, IAntiforgery antiforgery)
+        public LoginController(UserManager<UserModel> userManager, IAntiforgery antiforgery)
         {
             _userManager = userManager;
             _antiForgery = antiforgery;
@@ -31,7 +31,7 @@ namespace API.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(model.UserName);
+                UserModel user = await _userManager.FindByNameAsync(model.UserName);
 
                 if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
@@ -67,7 +67,7 @@ namespace API.Authentication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                IdentityUser newUser = new IdentityUser()
+                UserModel newUser = new UserModel()
                 {
                     Id = Guid.NewGuid().ToString(),
                     UserName = model.UserName,
@@ -100,7 +100,7 @@ namespace API.Authentication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                IdentityUser newUser = new IdentityUser()
+                UserModel newUser = new UserModel()
                 {
                     Id = Guid.NewGuid().ToString(),
                     UserName = model.UserName,

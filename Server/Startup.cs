@@ -33,15 +33,15 @@ namespace Server
 
             string identityConnectionString = Startup.Configuration["connectionStrings:LocalDbIdentity"];
             string migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            services.AddDbContext<IdentityDbContext>(options => {
+            services.AddDbContext<UserDbContext>(options => {
                 options.UseSqlServer(identityConnectionString, sql => {
                     sql.MigrationsAssembly("API.Data");
                 });
             });
 
-            services.AddIdentityCore<IdentityUser>(options => {});
+            services.AddIdentityCore<UserModel>(options => {});
             // services.AddScoped<IUserStore<UserModel>, UserStore>();
-            services.AddScoped<IUserStore<IdentityUser>, UserOnlyStore<IdentityUser, IdentityDbContext>>();
+            services.AddScoped<IUserStore<UserModel>, UserOnlyStore<UserModel, UserDbContext>>();
 
             services.AddAuthentication("cookies").AddCookie("cookies", options => {
                 options.LoginPath = "/api/login";

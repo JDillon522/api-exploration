@@ -2,27 +2,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace API.Data.Models
 {
-    public class RegisterModel
+    public class ForgotPasswordModel
     {
-        public string UserName { get; set; }
-
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
+    }
 
-        [Required]
+    public class ResetPasswordModel
+    {
+        public string Token { get; set; }
+        public string Email { get; set; }
+
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
         [Compare("Password")]
         [DataType(DataType.Password)]
-        public string ComparePassword { get; set; }
-    }
-
-    public class ConfirmEmailModel
-    {
-        [EmailAddress]
-        [Required]
-        public string Email { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

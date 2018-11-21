@@ -39,8 +39,15 @@ namespace Server
                 });
             });
 
-            services.AddIdentity<UserModel, IdentityRole>(options => {}).AddEntityFrameworkStores<UserDbContext>();
+            services.AddIdentity<UserModel, IdentityRole>(options => {
+                    options.SignIn.RequireConfirmedEmail = true;
+                })
+                .AddEntityFrameworkStores<UserDbContext>()
+                .AddDefaultTokenProviders();
 
+            services.Configure<DataProtectionTokenProviderOptions>(options => {
+                options.TokenLifespan = TimeSpan.FromHours(3);
+            });
             services.AddScoped<IUserStore<UserModel>, UserOnlyStore<UserModel, UserDbContext>>();
 
             services.ConfigureApplicationCookie(options => options.LoginPath = "/api/login");

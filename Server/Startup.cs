@@ -39,13 +39,11 @@ namespace Server
                 });
             });
 
-            services.AddIdentityCore<UserModel>(options => {});
-            // services.AddScoped<IUserStore<UserModel>, UserStore>();
+            services.AddIdentity<UserModel, IdentityRole>(options => {}).AddEntityFrameworkStores<UserDbContext>();
+
             services.AddScoped<IUserStore<UserModel>, UserOnlyStore<UserModel, UserDbContext>>();
 
-            services.AddAuthentication("cookies").AddCookie("cookies", options => {
-                options.LoginPath = "/api/login";
-            });
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/api/login");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

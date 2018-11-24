@@ -31,8 +31,52 @@ namespace REST.MVC
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddMvc();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            string identityConnectionString = StartupConfig.Configuration["connectionStrings:LocalDbIdentity"];
+            string migrationsAssembly = typeof(StartupConfig).GetTypeInfo().Assembly.GetName().Name;
+            services.AddDbContext<UserDbContext>(options => {
+                options.UseSqlServer(identityConnectionString, sql => {
+                    sql.MigrationsAssembly("API.Data");
+                });
+            });
+
+            services.AddIdentity<UserModel, IdentityRole>(options => {
+                    options.SignIn.RequireConfirmedEmail = true;
+                    options.Tokens.EmailConfirmationTokenProvider = "emailConfirm";
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredUniqueChars = 5;
+                    options.Password.RequiredLength = 15;
+
+                    options.User.RequireUniqueEmail = true;
+                })
+                .AddEntityFrameworkStores<UserDbContext>()
+                .AddDefaultTokenProviders()
+                .AddTokenProvider<EmailConfirmationTokenProvider<UserModel>>("emailConfirm")
+                .AddPasswordValidator<CustomPasswordValidator<UserModel>>();
+
+            services.Configure<DataProtectionTokenProviderOptions>(options => {
+                options.TokenLifespan = TimeSpan.FromHours(3);
+            });
+            services.Configure<EmailConfirmationTokenProviderOptions>(options => {
+                options.TokenLifespan = TimeSpan.FromDays(2);
+            });
+            services.Configure<PasswordHasherOptions>(options => {
+                options.IterationCount = 100000;
+            });
+            services.AddScoped<IUserStore<UserModel>, UserOnlyStore<UserModel, UserDbContext>>();
+
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/api/login");
+
+            services.Configure<RazorViewEngineOptions>(options => {
+                // options.ViewLocationExpanders.Add(new ViewLocationExpander());
+                // options.AreaViewLocationFormats.Clear();
+                // options.AreaViewLocationFormats.Add("/API.Authentication/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

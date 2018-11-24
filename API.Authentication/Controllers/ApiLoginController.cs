@@ -213,7 +213,7 @@ namespace API.Authentication.Controllers
         }
 
         [HttpGet("reset")]
-        public async Task<IActionResult> ResetPassword(string token, string email)
+        public IActionResult ResetPassword(string token, string email)
         {
             return RedirectToAction("ResetPassword", new ResetPasswordModel() { Token = token, Email = email });
         }

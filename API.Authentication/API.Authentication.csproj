@@ -4,16 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup><!-- <Folder Include="wwwroot\" /> -->
-
+  <ItemGroup>
     <ProjectReference Include="..\API.Data\API.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <!-- <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.1.0" /> -->
   </ItemGroup>
 
 </Project>

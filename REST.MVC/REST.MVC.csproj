@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\API.Authentication\API.Authentication.csproj" />
+    <ProjectReference Include="..\API.Data\API.Data.csproj" />
   </ItemGroup>
 
 </Project>

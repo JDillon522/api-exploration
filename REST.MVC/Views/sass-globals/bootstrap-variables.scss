@@ -1,3 +1,6 @@
+@import "./bootstrap-imports.scss";
+@import "./mat-palettes.scss";
+
 // Variables
 //
 // Variables should follow the `$component-state-property-size` formula for
@@ -72,9 +75,31 @@ $colors: map-merge(
   $colors
 );
 
-$primary:       $blue;
-$secondary:     $gray-600;
-$success:       $green;
+
+@function dTheme($key) {
+  $palette: map-get($DARK_THEME, $key);
+  @return mat-color($palette);
+}
+
+
+@function lTheme($key, $contrast: default) {
+  @if map-has-key($LIGHT_THEME, $key) {
+    $palette: map-get($LIGHT_THEME, $key);
+
+    @return mat-color($palette, $contrast);
+  }
+  @error "Invalid Key name `#{$key}.";
+}
+
+$PALETTE_PRIMARY: mat-palette($mat-red);
+$PALETTE_SECONDARY: mat-palette($mat-blue);
+$LIGHT_THEME: mat-light-theme($PALETTE_PRIMARY, $PALETTE_SECONDARY);
+$DARK_THEME: mat-dark-theme($PALETTE_PRIMARY, $PALETTE_SECONDARY);
+
+// THEME Colors
+$primary:       lTheme(primary);
+$secondary:     lTheme(accent);
+$success:       lTheme(primary, darker);
 $info:          $cyan;
 $warning:       $yellow;
 $danger:        $red;
@@ -112,12 +137,12 @@ $yiq-text-light:            $white;
 // Quickly modify global styling by enabling or disabling optional features.
 
 $enable-caret:              true;
-$enable-rounded:            true;
-$enable-shadows:            false;
-$enable-gradients:          false;
+$enable-rounded:            false;
+$enable-shadows:            true;
+$enable-gradients:          true;
 $enable-transitions:        true;
 $enable-hover-media-query:  false; // Deprecated, no longer affects any compiled CSS
-$enable-grid-classes:       true;
+$enable-grid-classes:       false;
 $enable-print-styles:       true;
 
 
@@ -160,7 +185,7 @@ $sizes: map-merge(
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   $white;
+$body-bg:                   $gray-50;
 $body-color:                $gray-900;
 
 // Links

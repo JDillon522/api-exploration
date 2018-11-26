@@ -16,12 +16,15 @@
   },
   "homepage": "https://github.com/JDillon522/api-exploration#readme",
   "devDependencies": {
-    "css-loader": "^1.0.1",
-    "extract-loader": "^3.0.0",
-    "file-loader": "^2.0.0",
-    "node-sass": "^4.10.0",
-    "sass-loader": "^7.1.0",
-    "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.3"
+    "gulp": "^4.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-uglify": "^3.0.1",
+    "rimraf": "^2.6.2",
+    "node-sass": "^4.9.4"
+  },
+  "dependencies": {
+    "bootstrap": "4.1.3"
   }
 }

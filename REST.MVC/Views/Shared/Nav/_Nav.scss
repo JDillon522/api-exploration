@@ -1,4 +1,43 @@
 #nav {
-    // background-color: $navbar-light-color;
     background-color: $success;
+    width: 5rem;
+    transition: width 0.10s ease-in;
+
+    nav {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: $spacer;
+
+            a {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                text-decoration: none;
+
+                h3 {
+                    opacity: 0;
+                    transition: opacity 0.25s ease-in;
+                    margin-left: 1rem;
+                    font-weight: 700;
+                    color: $light-secondary-text;
+                }
+            }
+        }
+    }
+
+    &:hover {
+        width: 11rem;
+
+        nav {
+            ul {
+                a {
+                    h3 {
+                        opacity: 100;
+                    }
+                }
+            }
+        }
+    }
 }

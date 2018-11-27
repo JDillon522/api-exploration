@@ -11371,10 +11371,59 @@ h6 {
   .snackbar {
     min-width: 280px; } }
 
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+  font-size: 18px; }
+
+.material-icons.md-24 {
+  font-size: 24px; }
+
+.material-icons.md-36 {
+  font-size: 36px; }
+
+.material-icons.md-48 {
+  font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54); }
+
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.38); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 0.7); }
+
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.5); }
+
 body {
   display: flex;
   flex-direction: row;
   height: 100vh; }
 
 #nav {
-  background-color: #d32f2f; }
+  background-color: #d32f2f;
+  width: 5rem;
+  transition: width 0.10s ease-in; }
+  #nav nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem; }
+    #nav nav ul a {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      text-decoration: none; }
+      #nav nav ul a h3 {
+        opacity: 0;
+        transition: opacity 0.25s ease-in;
+        margin-left: 1rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.7); }
+  #nav:hover {
+    width: 11rem; }
+    #nav:hover nav ul a h3 {
+      opacity: 100; }

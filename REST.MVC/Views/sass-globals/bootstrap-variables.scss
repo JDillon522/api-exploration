@@ -91,6 +91,7 @@ $colors: map-merge(
   @error "Invalid Key name `#{$key}.";
 }
 
+
 $PALETTE_PRIMARY: mat-palette($mat-red);
 $PALETTE_SECONDARY: mat-palette($mat-blue);
 $LIGHT_THEME: mat-light-theme($PALETTE_PRIMARY, $PALETTE_SECONDARY);
@@ -101,8 +102,8 @@ $primary:       lTheme(primary);
 $secondary:     lTheme(accent);
 $success:       lTheme(primary, darker);
 $info:          $cyan;
-$warning:       $yellow;
-$danger:        $red;
+$warning:       lTheme(warn, lighter);
+$danger:        lTheme(warn);
 $light:         $gray-100;
 $dark:          $gray-800;
 
@@ -185,7 +186,7 @@ $sizes: map-merge(
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   $gray-50;
+$body-bg:                   $gray-100;
 $body-color:                $gray-900;
 
 // Links

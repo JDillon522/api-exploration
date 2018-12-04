@@ -94,8 +94,10 @@ $colors: map-merge(
 
 $PALETTE_PRIMARY: mat-palette($mat-red);
 $PALETTE_SECONDARY: mat-palette($mat-blue);
+
 $LIGHT_THEME: mat-light-theme($PALETTE_PRIMARY, $PALETTE_SECONDARY);
 $DARK_THEME: mat-dark-theme($PALETTE_PRIMARY, $PALETTE_SECONDARY);
+
 
 // THEME Colors
 $primary:       lTheme(primary);
@@ -186,6 +188,8 @@ $sizes: map-merge(
 //
 // Settings for the `<body>` element.
 
+// $body-bg:                   $gray-100;
+// $body-color:                $gray-900;
 $body-bg:                   $gray-100;
 $body-color:                $gray-900;
 

@@ -1,6 +1,6 @@
 #nav {
     background-color: $success;
-    width: 5rem;
+    width: $nav-width;
     transition: width 0.10s ease-in;
 
     nav {

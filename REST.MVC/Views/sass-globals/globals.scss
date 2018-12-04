@@ -11,3 +11,10 @@
  /* Rules for using icons as white on a dark background. */
  .material-icons.md-light { color: $light-secondary-text; }
  .material-icons.md-light.md-inactive { color: $light-disabled-text; }
+
+@include mat-core();
+
+ .card {
+    margin: $spacer;
+    padding: $spacer;
+ }

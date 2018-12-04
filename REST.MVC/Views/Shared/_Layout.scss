@@ -2,4 +2,15 @@ body {
     display: flex;
     flex-direction: row;
     height: 100vh;
+    background-color: $body-bg;
+
+    .body_content {
+        width: $content-width;
+        display: flex;
+        flex-direction: column;
+
+        .content {
+
+        }
+    }
 }

@@ -1,13 +1,15 @@
 // Settings
-@import "./sass-globals/bootstrap-variables.scss";
-@import "./sass-globals/material-elevation.scss";
-@import "./sass-globals/variables.scss";
-@import "./sass-globals/globals.scss";
+@import "./sass-globals/_bootstrap-variables.scss";
+@import "./sass-globals/_material-elevation.scss";
+@import "./sass-globals/_variables.scss";
+@import "./sass-globals/_globals.scss";
 
 // Shared
 @import "./Shared/Layout.scss";
 @import "./Shared/Error.scss";
 @import "./Shared/Nav/Nav.scss";
+@import "./Shared/Components/FormAlerts";
 
 // Login
 @import "./Login/Index.scss";
+@import "./Login/Register.scss";

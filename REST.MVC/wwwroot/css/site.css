@@ -11477,6 +11477,18 @@ h6 {
   margin: 1rem;
   padding: 1rem; }
 
+form {
+  margin-bottom: 0; }
+  form .bmd-card-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; }
+    form .bmd-card-actions .btn, form .bmd-card-actions .custom-file-control::before {
+      margin: 0.25rem; }
+
+.hidden {
+  display: none; }
+
 body {
   display: flex;
   flex-direction: row;
@@ -11490,7 +11502,7 @@ body {
 #nav {
   background-color: #d32f2f;
   width: 5rem;
-  transition: width 0.10s ease-in; }
+  transition: width 0.10s ease-in 0.2s; }
   #nav nav ul {
     list-style: none;
     padding: 0;
@@ -11512,5 +11524,12 @@ body {
     #nav:hover nav ul a h3 {
       opacity: 100; }
 
-#login form {
-  margin-bottom: 0; }
+.errorsList, .successList {
+  list-style: none; }
+  .errorsList li, .successList li {
+    padding: 0; }
+
+
+
+
+

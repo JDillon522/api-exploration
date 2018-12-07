@@ -18,3 +18,21 @@
     margin: $spacer;
     padding: $spacer;
  }
+
+ form {
+   margin-bottom: 0;
+
+   .bmd-card-actions {
+       display: flex;
+       flex-direction: row;
+       justify-content: flex-end;
+
+       .btn {
+           margin: map-get($spacers, 1);
+       }
+   }
+}
+
+ .hidden {
+    display: none;
+ }

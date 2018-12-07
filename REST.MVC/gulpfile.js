@@ -4,39 +4,52 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const tildeImporter = require('node-sass-tilde-importer');
+const concat = require('gulp-concat');
 
 sass.compiler = require('node-sass');
 const sassOptions = {
     importer: tildeImporter
 }
 
-const paths = {
-    scssRoot: './Views/',
-    outputRoot: './wwwroot/'
+const root = {
+    app: './Views/',
+    output: './wwwroot/'
 };
 
-paths.stylesRoot = paths.scssRoot + 'site.scss';
-paths.styles = paths.scssRoot + '**/*.scss';
-paths.stylesDest = paths.outputRoot + 'css';
+const paths = {
+    sass: [root.app + '**/*.scss'],
+    js: [root.output + 'js/utils.js', root.app + '**/*.js']
+};
+
+root.stylesRoot = root.app + 'site.scss';
+root.stylesDest = root.output + 'css';
+
+root.js = root.app + '**/*.js';
+root.jsDest = root.output + 'js';
 
 gulp.task('scss', () => {
-    return gulp.src(paths.stylesRoot)
+    return gulp.src(paths.sass)
         .pipe(sass(sassOptions).on('error', sass.logError))
-        .pipe(gulp.dest(paths.stylesDest));
+        .pipe(concat('site.css'))
+        .pipe(gulp.dest(root.stylesDest));
 });
 
-gulp.task('autoprefixer', () =>{
-    return gulp.src(paths.stylesDest)
-        .pipe(autoprefixer({}))
-        .pipe(gulp.dest('dist'))
-    }
-);
+// gulp.task('autoprefixer', () =>{
+//     return gulp.src(root.stylesDest)
+//         .pipe(autoprefixer({}))
+//         .pipe(gulp.dest(root.output))
+// });
 
-gulp.task('scss:watch', () => {
-    console.log(`Watching files at: ${paths.styles}`);
+gulp.task('js', () => {
+    return gulp.src(paths.js)
+        .pipe(concat('site.js'))
+        .pipe(gulp.dest(root.jsDest));
+});
 
-    return gulp.watch(paths.styles, gulp.series(['scss', 'autoprefixer']));
+gulp.task('watch', () => {
+    gulp.watch(paths.js, gulp.series(['js']));
+    gulp.watch(paths.sass, gulp.series(['scss', /* 'autoprefixer' */]));
 });
 
 // A 'default' task is required by Gulp v4
-gulp.task('default', gulp.series(['scss', 'autoprefixer', 'scss:watch']));
+gulp.task('default', gulp.series(['scss', /* 'autoprefixer', */ 'js', 'watch']));

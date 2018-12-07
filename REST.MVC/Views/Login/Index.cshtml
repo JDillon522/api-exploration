@@ -3,7 +3,7 @@
 <section id="login" class="card mat-elevation-z3">
     <h1 class="text-center">Login</h1>
 
-    <form action="/api/login" method="post" accept="application/json" class="form-horizontal">
+    <form action="/api/login" method="post" accept="application/json" class="form-horizontal card-body">
         <div class="form-group">
             <label asp-for="UserName" class="bmd-label-floating"></label>
             <input asp-for="UserName" class="form-control" />
@@ -12,9 +12,14 @@
             <label asp-for="Password" class=""></label>
             <input asp-for="Password" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a class="btn btn-primary" asp-action="ForgotPassword">Forgot Password?</a>
-        <div asp-validation-summary="All"></div>
+
+        <div class="bmd-card-actions">
+            <button type="submit" class="btn btn-raised btn-primary">Submit</button>
+            <a class="btn btn-raised btn-primary" asp-action="ForgotPassword">Forgot Password?</a>
+            <a class="btn btn-raised btn-success" asp-action="Register">Signup</a>
+            <div asp-validation-summary="All"></div>
+        </div>
+
     </form>
 
 </section>

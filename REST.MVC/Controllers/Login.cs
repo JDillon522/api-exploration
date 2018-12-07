@@ -4,7 +4,13 @@ namespace REST.MVC.Controllers
 {
     public class Login : Controller
     {
-         public IActionResult Index()
+         public IActionResult Index([FromQuery] string userName)
+        {
+            ViewData["userName"] = userName;
+            return View();
+        }
+
+        public IActionResult Register()
         {
             return View();
         }

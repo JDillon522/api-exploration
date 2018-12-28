@@ -15,27 +15,25 @@
                 justify-content: flex-start;
                 align-items: center;
                 text-decoration: none;
+            }
 
-                h3 {
-                    opacity: 0;
-                    transition: opacity 0.25s ease-in;
-                    margin-left: 1rem;
-                    font-weight: 700;
-                    color: $light-secondary-text;
-                }
+            a h3, span {
+                opacity: 0;
+                transition: opacity 0.25s ease-in;
+                margin-left: 1rem;
+                font-weight: 700;
+                color: $light-secondary-text;
             }
         }
     }
 
     &:hover {
-        width: 11rem;
+        width: 13rem;
 
         nav {
             ul {
-                a {
-                    h3 {
-                        opacity: 100;
-                    }
+                a h3, span {
+                    opacity: 100;
                 }
             }
         }

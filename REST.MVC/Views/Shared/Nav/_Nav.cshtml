@@ -1,14 +1,41 @@
+@using System.Security.Claims
+
 <aside id="nav">
+
     <nav>
         <ul>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a asp-controller="Account" asp-action="Index">
+                        <i class="material-icons md-48 md-light">account_circle</i>
+                        <h3>Account</h3>
+                    </a>
+                </li>
+
+                <li>
+                    <form id="logout-form" asp-action="Logout" asp-controller="Login" method="Post">
+                        @Html.AntiForgeryToken()
+                    </form>
+
+                    <a href="javascript:document.getElementById('logout-form').submit()">
+                        <i class="material-icons md-48 md-light">vpn_key</i>
+                        <h3>Logout</h3>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a asp-controller="Login" asp-action="Index">
+                        <i class="material-icons md-48 md-light">vpn_key</i>
+                        <h3>Login</h3>
+                    </a>
+                </li>
+            }
+
             <li>
-                <a asp-controller="Login" asp-action="Index">
-                    <i class="material-icons md-48 md-light">vpn_key</i>
-                    <h3>Login</h3>
-                </a>
-            </li>
-            <li>
-                <a asp-action="Index">
+                <a asp-action="Index" asp-controller="Home">
                     <i class="material-icons md-48 md-light">home</i>
                     <h3>Home</h3>
                 </a>

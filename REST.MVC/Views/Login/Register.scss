@@ -1,3 +1,10 @@
 #register {
+    .validation-summary-errors {
+        display: none;
+    }
 
+    .invalid-feedback {
+        display: block;
+        font-size: 100%;
+    }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using API.Authentication.Custom;
+using API.Authentication.Services;
 using API.Data.Entities;
 using API.Data.Models;
 using Microsoft.AspNetCore.Antiforgery;
@@ -76,6 +77,7 @@ namespace REST.MVC
                 options.IterationCount = 100000;
             });
             services.AddScoped<IUserStore<UserModel>, UserOnlyStore<UserModel, UserDbContext>>();
+            services.AddScoped<ApiLoginService>();
 
             services.ConfigureApplicationCookie(options => options.LoginPath = "/api/login");
         }

@@ -1,35 +1,42 @@
-
 @model API.Data.Models.RegisterModel
 <section id="register" class="card mat-elevation-z3">
     <h1 class="text-center">Signup</h1>
 
-    <form id="register-form" class="form-horizontal card-body">
+    <form
+        id="register-form"
+        enctype="multipart/form-data"
+        method="POST"
+        asp-action="Register"
+        class="form-horizontal card-body">
         <div class="form-group">
             <label asp-for="UserName" class="bmd-label-floating">User Name</label>
             <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="invalid-feedback"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Email" class="bmd-label-floating">Email</label>
             <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="invalid-feedback"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Password" class="bmd-label-floating">Password</label>
             <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="invalid-feedback"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="ComparePassword" class="bmd-label-floating">Compare Password</label>
             <input asp-for="ComparePassword" class="form-control" />
+            <span asp-validation-for="ComparePassword" class="invalid-feedback"></span>
         </div>
 
         <div class="bmd-card-actions">
             <button type="submit" class="btn btn-raised btn-primary">Submit</button>
-            <div asp-validation-summary="All"></div>
         </div>
         @Html.AntiForgeryToken()
     </form>
 
-    <partial name="Components/_FormAlerts"></partial>
+    <!-- <partial name="Components/_FormAlerts"></partial> -->
 </section>

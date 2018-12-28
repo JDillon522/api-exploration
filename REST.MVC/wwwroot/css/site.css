@@ -11513,23 +11513,38 @@ body {
       justify-content: flex-start;
       align-items: center;
       text-decoration: none; }
-      #nav nav ul a h3 {
-        opacity: 0;
-        transition: opacity 0.25s ease-in;
-        margin-left: 1rem;
-        font-weight: 700;
-        color: rgba(255, 255, 255, 0.7); }
+    #nav nav ul a h3, #nav nav ul span {
+      opacity: 0;
+      transition: opacity 0.25s ease-in;
+      margin-left: 1rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7); }
   #nav:hover {
-    width: 11rem; }
-    #nav:hover nav ul a h3 {
+    width: 13rem; }
+    #nav:hover nav ul a h3, #nav:hover nav ul span {
       opacity: 100; }
 
-.errorsList, .successList {
-  list-style: none; }
-  .errorsList li, .successList li {
+.errorsList ul, .successList ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .errorsList ul li, .successList ul li {
     padding: 0; }
 
+#register .validation-summary-errors {
+  display: none; }
+
+#register .invalid-feedback {
+  display: block;
+  font-size: 100%; }
 
 
 
+
+#register .validation-summary-errors {
+  display: none; }
+
+#register .invalid-feedback {
+  display: block;
+  font-size: 100%; }
 

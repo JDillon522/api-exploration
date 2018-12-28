@@ -9,6 +9,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using API.Authentication.Services;
 
 namespace API.Authentication.Controllers
 {
@@ -20,17 +22,21 @@ namespace API.Authentication.Controllers
         private readonly IUserClaimsPrincipalFactory<UserModel> _claimsFactory;
         private readonly SignInManager<UserModel> _signInManager;
 
+        private readonly ApiLoginService _loginService;
+
         public ApiLoginController(
             UserManager<UserModel> userManager,
             IAntiforgery antiforgery,
             IUserClaimsPrincipalFactory<UserModel> claimsPrincipalFactory,
-            SignInManager<UserModel> signInManager
+            SignInManager<UserModel> signInManager,
+            ApiLoginService loginService
         )
         {
             _userManager = userManager;
             _antiForgery = antiforgery;
             _claimsFactory = claimsPrincipalFactory;
             _signInManager = signInManager;
+            _loginService = loginService;
         }
 
 
@@ -80,19 +86,19 @@ namespace API.Authentication.Controllers
 
         [HttpPost("register")]
         [Authorize]
-        public async Task<IActionResult> RegisterNewUser([FromBody] RegisterModel model)
+        public async Task<IActionResult> RegisterNewUser([FromBody] RegisterModel bodyModel)
         {
-            return await HandleSignup(model);
+            return await HandleApiSignup(bodyModel);
         }
 
         [HttpPost("signup")]
         [AllowAnonymous]
-        public async Task<IActionResult> SelfRegister([FromBody] RegisterModel model)
+        public async Task<IActionResult> SelfRegisterBody([FromBody] RegisterModel bodyModel)
         {
-            return await HandleSignup(model);
+            return await HandleApiSignup(bodyModel);
         }
 
-        private async Task<IActionResult> HandleSignup(RegisterModel model)
+        private async Task<IActionResult> HandleApiSignup(RegisterModel model)
         {
             if (ModelState.IsValid) {
                 if (await _userManager.FindByNameAsync(model.UserName) != null) {
@@ -100,20 +106,12 @@ namespace API.Authentication.Controllers
                     return BadRequest(ModelState);
                 }
 
-                UserModel newUser = new UserModel()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    UserName = model.UserName,
-                    Email = model.Email
-                };
-
-                IdentityResult result = await _userManager.CreateAsync(newUser, model.Password);
+                IdentityResult result = await _loginService.AddValidatedNewUser(model);
 
                 if (result.Succeeded) {
-                    string token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                    string confirmEmailUrl = Url.Action("ConfirmEmail", "Login", new { token = token, email = newUser.Email }, Request.Scheme);
-                    System.IO.File.WriteAllText("testOutput.txt", $"Confirm Link ------ ${confirmEmailUrl}");
-
+                    // string token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                    // string confirmEmailUrl = Url.Action("ConfirmEmail", "Login", new { token = token, email = newUser.Email }, Request.Scheme);
+                    // System.IO.File.WriteAllText("testOutput.txt", $"Confirm Link ------ ${confirmEmailUrl}");
                     return Ok();
                 }
 

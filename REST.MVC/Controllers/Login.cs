@@ -27,7 +27,7 @@ namespace REST.MVC.Controllers
             _claimsFactory = claimsFactory;
         }
 
-        public IActionResult Index([FromQuery] string userName, ModelStateDictionary model)
+        public IActionResult Index([FromQuery] string userName)
         {
             ViewData["userName"] = userName;
             return View();

@@ -6,9 +6,10 @@ namespace API.Data.Entities
 {
     public class UserDbContext : IdentityDbContext<UserModel>
     {
+        public virtual DbSet<UserInfo> UserInfo { get; set; }
+
         public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

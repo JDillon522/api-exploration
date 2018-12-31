@@ -1,0 +1,86 @@
+@{
+    ViewBag.Title = "Account";
+    UserViewModel user = ViewBag.User;
+}
+@model UserViewModel;
+
+<section id="account" class="card mat-elevation-z3">
+    <h1 class="text-center">You Account</h1>
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <i class="material-icons">account_circle</i>
+            <div class="bmd-list-group-col">
+                <p class="list-group-item-heading">User Name</p>
+                <p class="list-group-item-text">@user.UserName</p>
+                <p class="list-group-item-heading">Full Name</p>
+                <p class="list-group-item-text">@user.FullName</p>
+                <p class="list-group-item-heading">Age</p>
+                <p class="list-group-item-text">@user.Age</p>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <i class="material-icons">mail_outline</i>
+            <div class="bmd-list-group-col">
+                <p class="list-group-item-heading">Email</p>
+                <p class="list-group-item-text">@user.Email</p>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <i class="material-icons">phone</i>
+            <div class="bmd-list-group-col">
+                <p class="list-group-item-heading">Phone Number</p>
+                <p class="list-group-item-text">@user.PhoneNumber</p>
+            </div>
+        </li>
+    </ul>
+
+    <form
+        id="update-account-form"
+        enctype="multipart/form-data"
+        method="POST"
+        asp-action="UpdateAccount"
+        class="form-horizontal card-body">
+        <!-- <div class="form-group">
+            <label asp-for="UserName" class="bmd-label-floating">User Name</label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="invalid-feedback"></span>
+        </div> -->
+
+        <!-- <div class="form-group">
+            <label asp-for="Email" class="bmd-label-floating">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="invalid-feedback"></span>
+        </div> -->
+
+        <div class="form-group">
+            <label asp-for="FirstName" class="bmd-label-floating">First Name</label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="invalid-feedback"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName" class="bmd-label-floating">Last Name</label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="invalid-feedback"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="bmd-label-floating">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" type="tel" />
+            <span asp-validation-for="PhoneNumber" class="invalid-feedback"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Age" class="bmd-label-floating">Age</label>
+            <input asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="invalid-feedback"></span>
+        </div>
+
+        <div class="bmd-card-actions">
+            <button type="submit" class="btn btn-raised btn-primary">Submit</button>
+        </div>
+        @Html.AntiForgeryToken()
+    </form>
+
+</section>

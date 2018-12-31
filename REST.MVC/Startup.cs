@@ -7,6 +7,7 @@ using API.Authentication.Custom;
 using API.Authentication.Services;
 using API.Data.Entities;
 using API.Data.Models;
+using API.Data.Services;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -76,8 +77,10 @@ namespace REST.MVC
             services.Configure<PasswordHasherOptions>(options => {
                 options.IterationCount = 100000;
             });
+
             services.AddScoped<IUserStore<UserModel>, UserOnlyStore<UserModel, UserDbContext>>();
             services.AddScoped<ApiLoginService>();
+            services.AddScoped<AccountRepisitory>();
 
             services.ConfigureApplicationCookie(options => options.LoginPath = "/api/login");
         }
@@ -99,6 +102,11 @@ namespace REST.MVC
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+
+            AutoMapper.Mapper.Initialize(config => {
+                config.CreateMap<UserInfoForUpdateOrCreation, UserInfo>();
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
